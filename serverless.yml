@@ -1,0 +1,68 @@
+type: sb10-rest-api
+
+components:
+  productsDb:
+  type: aws-dynamodb
+  inputs:
+    region: us-east-1
+    tables:
+      - name: matches
+        hashKey: id
+        indexes:
+          - name: MatchIdIndex
+            type: global
+            hashKey: id
+        schema:
+          id: number
+          Endroit: string
+          DateHeure: date
+          EquipeLoc:
+            type: string
+            options:
+              required: true
+          EquipeVis:
+            type: string
+            options:
+              required: true
+          Sport:
+            type: string
+            options:
+              required: true
+          Categorie: string
+          PtsLoc:
+            type: number
+            options:
+              default: 0
+          PtsVis:
+            type: number
+            options:
+              default: 0
+          Periode:
+            type: number
+            options:
+              default: 0
+          Minute:
+            type: number
+            options:
+              default: 0
+          Seconde:
+            type: number
+            options:
+              default: 0
+          Balles:
+            type: number
+            options:
+              default: 0
+          Prises:
+            type: number
+            options:
+              default: 0
+          Retraits:
+            type: number
+            options:
+              default: 0
+          Aubaton: string
+          Surlesbuts: string
+          Etat: string
+        options:
+          timestamps: true
