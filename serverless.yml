@@ -1,15 +1,15 @@
 type: sb10-rest-api
 
 components:
-  matchesDb:
+  gamesDb:
     type: aws-dynamodb
     inputs:
       region: us-east-1
       tables:
-        - name: Matches
+        - name: games
           hashKey: id
           indexes:
-            - name: MatchIdIndex
+            - name: gameIdIndex
               type: global
               hashKey: id
           schema:
@@ -66,3 +66,46 @@ components:
             Etat: string
           options:
             timestamps: true
+  createGame:
+    type: aws-lambda
+    inputs:
+      memory: 512
+      timeout: 10
+      handler: games.create
+      root: ${self.path}/code
+      env:
+        gamesTableName: games
+  getGame:
+    type: aws-lambda
+    inputs:
+      memory: 512
+      timeout: 10
+      handler: games.get
+      root: ${self.path}/code
+      env:
+        gamesTableName: games
+  listGames:
+    type: aws-lambda
+    inputs:
+      memory: 512
+      timeout: 10
+      handler: games.list
+      root: ${self.path}/code
+      env:
+        gamesTableName: games
+  gamesApi:
+    type: rest-api
+    inputs:
+      gateway: aws-apigateway
+      routes:
+        /games:
+          post:
+            function: ${createGame}
+            cors: true
+          get:
+            function: ${listGames}
+            cors: true
+          /{id}:
+            get:
+              function: ${getGame}
+              cors: true
