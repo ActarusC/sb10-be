@@ -7,11 +7,13 @@ components:
       region: us-east-1
       tables:
         - name: games
-          hashKey: id
+          hashKey: Sport
+          rangeKey: id
           indexes:
             - name: gameIdIndex
               type: global
-              hashKey: id
+              hashKey: Sport
+              rangeKey: id
           schema:
             id: number
             Endroit: string
@@ -72,7 +74,7 @@ components:
       memory: 512
       timeout: 10
       handler: games.create
-      root: ${self.path}/code
+      root: ./code
       env:
         gamesTableName: games
   getGame:
@@ -81,7 +83,7 @@ components:
       memory: 512
       timeout: 10
       handler: games.get
-      root: ${self.path}/code
+      root: ./code
       env:
         gamesTableName: games
   listGames:
@@ -90,9 +92,18 @@ components:
       memory: 512
       timeout: 10
       handler: games.list
-      root: ${self.path}/code
+      root: ./code
       env:
         gamesTableName: games
+  getMaxId:
+    type: aws-lambda
+    inputs:
+      memory: 512
+      timeout: 10
+      handler: games.getMaxId
+      root: ./code
+      env:
+        gamesTableName: games       
   gamesApi:
     type: rest-api
     inputs:
@@ -109,3 +120,9 @@ components:
             get:
               function: ${getGame}
               cors: true
+          /getMaxId:
+            get:
+              function: ${getMaxId}
+              cors: true
+
+

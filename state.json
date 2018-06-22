@@ -1,8 +1,532 @@
 {
   "$": {
-    "serviceId": "w6nr998yw3"
+    "serviceId": "1dvkr9t47y"
   },
   "sb10-rest-api": {
-    "instanceId": "w6nr998yw3-a6aa8urw"
+    "instanceId": "1dvkr9t47y-m4rjn9kd"
+  },
+  "sb10-rest-api:gamesDb": {
+    "type": "aws-dynamodb",
+    "state": {
+      "ddbtables": [
+        {
+          "games": {
+            "TableDescription": {
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "Sport",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "id",
+                  "AttributeType": "N"
+                }
+              ],
+              "TableName": "games",
+              "KeySchema": [
+                {
+                  "AttributeName": "Sport",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "id",
+                  "KeyType": "RANGE"
+                }
+              ],
+              "TableStatus": "CREATING",
+              "CreationDateTime": "2018-06-22T01:40:10.095Z",
+              "ProvisionedThroughput": {
+                "NumberOfDecreasesToday": 0,
+                "ReadCapacityUnits": 1,
+                "WriteCapacityUnits": 1
+              },
+              "TableSizeBytes": 0,
+              "ItemCount": 0,
+              "TableArn": "arn:aws:dynamodb:us-east-1:283921831988:table/games",
+              "TableId": "320187eb-45e9-4146-ae53-79339a6cd88c",
+              "GlobalSecondaryIndexes": [
+                {
+                  "IndexName": "gameIdIndex",
+                  "KeySchema": [
+                    {
+                      "AttributeName": "Sport",
+                      "KeyType": "HASH"
+                    },
+                    {
+                      "AttributeName": "id",
+                      "KeyType": "RANGE"
+                    }
+                  ],
+                  "Projection": {
+                    "ProjectionType": "ALL"
+                  },
+                  "IndexStatus": "CREATING",
+                  "ProvisionedThroughput": {
+                    "NumberOfDecreasesToday": 0,
+                    "ReadCapacityUnits": 1,
+                    "WriteCapacityUnits": 1
+                  },
+                  "IndexSizeBytes": 0,
+                  "ItemCount": 0,
+                  "IndexArn": "arn:aws:dynamodb:us-east-1:283921831988:table/games/index/gameIdIndex"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "instanceId": "1dvkr9t47y-bmdfsan4",
+    "internallyManaged": false,
+    "rootPath": "../../AppData/Roaming/npm/node_modules/serverless-components/registry/aws-dynamodb",
+    "inputs": {
+      "region": "us-east-1",
+      "tables": [
+        {
+          "name": "games",
+          "hashKey": "Sport",
+          "rangeKey": "id",
+          "indexes": [
+            {
+              "name": "gameIdIndex",
+              "type": "global",
+              "hashKey": "Sport",
+              "rangeKey": "id"
+            }
+          ],
+          "schema": {
+            "id": "number",
+            "Endroit": "string",
+            "DateHeure": "date",
+            "EquipeLoc": {
+              "type": "string",
+              "options": {
+                "required": true
+              }
+            },
+            "EquipeVis": {
+              "type": "string",
+              "options": {
+                "required": true
+              }
+            },
+            "Sport": {
+              "type": "string",
+              "options": {
+                "required": true
+              }
+            },
+            "Categorie": "string",
+            "PtsLoc": {
+              "type": "number",
+              "options": {
+                "default": 0
+              }
+            },
+            "PtsVis": {
+              "type": "number",
+              "options": {
+                "default": 0
+              }
+            },
+            "Periode": {
+              "type": "number",
+              "options": {
+                "default": 0
+              }
+            },
+            "Minute": {
+              "type": "number",
+              "options": {
+                "default": 0
+              }
+            },
+            "Seconde": {
+              "type": "number",
+              "options": {
+                "default": 0
+              }
+            },
+            "Balles": {
+              "type": "number",
+              "options": {
+                "default": 0
+              }
+            },
+            "Prises": {
+              "type": "number",
+              "options": {
+                "default": 0
+              }
+            },
+            "Retraits": {
+              "type": "number",
+              "options": {
+                "default": 0
+              }
+            },
+            "Aubaton": "string",
+            "Surlesbuts": "string",
+            "Etat": "string"
+          },
+          "options": {
+            "timestamps": true
+          }
+        }
+      ]
+    }
+  },
+  "sb10-rest-api:createGame": {
+    "type": "aws-lambda",
+    "state": {
+      "memory": 512,
+      "timeout": 10,
+      "handler": "games.create",
+      "root": "./code",
+      "env": {
+        "gamesTableName": "games"
+      },
+      "name": "func-1dvkr9t47y-ljkli2s0",
+      "arn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-ljkli2s0",
+      "roleArn": "arn:aws:iam::283921831988:role/func-1dvkr9t47y-ljkli2s0-execution-role",
+      "defaultRole": {
+        "name": "func-1dvkr9t47y-ljkli2s0-execution-role",
+        "arn": "arn:aws:iam::283921831988:role/func-1dvkr9t47y-ljkli2s0-execution-role",
+        "service": "lambda.amazonaws.com",
+        "policy": {
+          "arn": "arn:aws:iam::aws:policy/AdministratorAccess"
+        }
+      }
+    },
+    "instanceId": "1dvkr9t47y-ljkli2s0",
+    "internallyManaged": false,
+    "rootPath": "../../AppData/Roaming/npm/node_modules/serverless-components/registry/aws-lambda",
+    "inputs": {
+      "memory": 512,
+      "timeout": 10,
+      "handler": "games.create",
+      "root": "./code",
+      "env": {
+        "gamesTableName": "games"
+      },
+      "name": "func-1dvkr9t47y-ljkli2s0"
+    }
+  },
+  "sb10-rest-api:getGame": {
+    "type": "aws-lambda",
+    "state": {
+      "memory": 512,
+      "timeout": 10,
+      "handler": "games.get",
+      "root": "./code",
+      "env": {
+        "gamesTableName": "games"
+      },
+      "name": "func-1dvkr9t47y-w4sebyk1",
+      "arn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-w4sebyk1",
+      "roleArn": "arn:aws:iam::283921831988:role/func-1dvkr9t47y-w4sebyk1-execution-role",
+      "defaultRole": {
+        "name": "func-1dvkr9t47y-w4sebyk1-execution-role",
+        "arn": "arn:aws:iam::283921831988:role/func-1dvkr9t47y-w4sebyk1-execution-role",
+        "service": "lambda.amazonaws.com",
+        "policy": {
+          "arn": "arn:aws:iam::aws:policy/AdministratorAccess"
+        }
+      }
+    },
+    "instanceId": "1dvkr9t47y-w4sebyk1",
+    "internallyManaged": false,
+    "rootPath": "../../AppData/Roaming/npm/node_modules/serverless-components/registry/aws-lambda",
+    "inputs": {
+      "memory": 512,
+      "timeout": 10,
+      "handler": "games.get",
+      "root": "./code",
+      "env": {
+        "gamesTableName": "games"
+      },
+      "name": "func-1dvkr9t47y-w4sebyk1"
+    }
+  },
+  "sb10-rest-api:listGames": {
+    "type": "aws-lambda",
+    "state": {
+      "memory": 512,
+      "timeout": 10,
+      "handler": "games.list",
+      "root": "./code",
+      "env": {
+        "gamesTableName": "games"
+      },
+      "name": "func-1dvkr9t47y-g11cfdof",
+      "arn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-g11cfdof",
+      "roleArn": "arn:aws:iam::283921831988:role/func-1dvkr9t47y-g11cfdof-execution-role",
+      "defaultRole": {
+        "name": "func-1dvkr9t47y-g11cfdof-execution-role",
+        "arn": "arn:aws:iam::283921831988:role/func-1dvkr9t47y-g11cfdof-execution-role",
+        "service": "lambda.amazonaws.com",
+        "policy": {
+          "arn": "arn:aws:iam::aws:policy/AdministratorAccess"
+        }
+      }
+    },
+    "instanceId": "1dvkr9t47y-g11cfdof",
+    "internallyManaged": false,
+    "rootPath": "../../AppData/Roaming/npm/node_modules/serverless-components/registry/aws-lambda",
+    "inputs": {
+      "memory": 512,
+      "timeout": 10,
+      "handler": "games.list",
+      "root": "./code",
+      "env": {
+        "gamesTableName": "games"
+      },
+      "name": "func-1dvkr9t47y-g11cfdof"
+    }
+  },
+  "sb10-rest-api:gamesApi": {
+    "type": "rest-api",
+    "state": {
+      "roleArn": "arn:aws:iam::283921831988:role/api-1dvkr9t47y-w6hujrdo-iam-role-1dvkr9t47y-w6hujrdo",
+      "url": "https://w8ir5ytsib.execute-api.us-east-1.amazonaws.com/dev/"
+    },
+    "instanceId": "1dvkr9t47y-w6hujrdo",
+    "internallyManaged": false,
+    "rootPath": "../../AppData/Roaming/npm/node_modules/serverless-components/registry/rest-api",
+    "inputs": {
+      "gateway": "aws-apigateway",
+      "routes": {
+        "/games": {
+          "post": {
+            "function": {
+              "arn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-ljkli2s0",
+              "roleArn": "arn:aws:iam::283921831988:role/func-1dvkr9t47y-ljkli2s0-execution-role"
+            },
+            "cors": true
+          },
+          "get": {
+            "function": {
+              "arn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-g11cfdof",
+              "roleArn": "arn:aws:iam::283921831988:role/func-1dvkr9t47y-g11cfdof-execution-role"
+            },
+            "cors": true
+          },
+          "/{id}": {
+            "get": {
+              "function": {
+                "arn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-w4sebyk1",
+                "roleArn": "arn:aws:iam::283921831988:role/func-1dvkr9t47y-w4sebyk1-execution-role"
+              },
+              "cors": true
+            }
+          },
+          "/getMaxId": {
+            "get": {
+              "function": {
+                "arn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-0bgy7iel",
+                "roleArn": "arn:aws:iam::283921831988:role/func-1dvkr9t47y-0bgy7iel-execution-role"
+              },
+              "cors": true
+            }
+          }
+        }
+      },
+      "name": "api-1dvkr9t47y-w6hujrdo"
+    }
+  },
+  "sb10-rest-api:getGame:defaultRole": {
+    "instanceId": "1dvkr9t47y-2hsbq0m9",
+    "type": "aws-iam-role",
+    "internallyManaged": true,
+    "rootPath": "../../AppData/Roaming/npm/node_modules/serverless-components/registry/aws-iam-role",
+    "inputs": {
+      "name": "func-1dvkr9t47y-w4sebyk1-execution-role",
+      "service": "lambda.amazonaws.com"
+    },
+    "state": {
+      "name": "func-1dvkr9t47y-w4sebyk1-execution-role",
+      "arn": "arn:aws:iam::283921831988:role/func-1dvkr9t47y-w4sebyk1-execution-role",
+      "service": "lambda.amazonaws.com",
+      "policy": {
+        "arn": "arn:aws:iam::aws:policy/AdministratorAccess"
+      }
+    }
+  },
+  "sb10-rest-api:createGame:defaultRole": {
+    "instanceId": "1dvkr9t47y-5b5mec2g",
+    "type": "aws-iam-role",
+    "internallyManaged": true,
+    "rootPath": "../../AppData/Roaming/npm/node_modules/serverless-components/registry/aws-iam-role",
+    "inputs": {
+      "name": "func-1dvkr9t47y-ljkli2s0-execution-role",
+      "service": "lambda.amazonaws.com"
+    },
+    "state": {
+      "name": "func-1dvkr9t47y-ljkli2s0-execution-role",
+      "arn": "arn:aws:iam::283921831988:role/func-1dvkr9t47y-ljkli2s0-execution-role",
+      "service": "lambda.amazonaws.com",
+      "policy": {
+        "arn": "arn:aws:iam::aws:policy/AdministratorAccess"
+      }
+    }
+  },
+  "sb10-rest-api:listGames:defaultRole": {
+    "instanceId": "1dvkr9t47y-hk9bqfsm",
+    "type": "aws-iam-role",
+    "internallyManaged": true,
+    "rootPath": "../../AppData/Roaming/npm/node_modules/serverless-components/registry/aws-iam-role",
+    "inputs": {
+      "name": "func-1dvkr9t47y-g11cfdof-execution-role",
+      "service": "lambda.amazonaws.com"
+    },
+    "state": {
+      "name": "func-1dvkr9t47y-g11cfdof-execution-role",
+      "arn": "arn:aws:iam::283921831988:role/func-1dvkr9t47y-g11cfdof-execution-role",
+      "service": "lambda.amazonaws.com",
+      "policy": {
+        "arn": "arn:aws:iam::aws:policy/AdministratorAccess"
+      }
+    }
+  },
+  "sb10-rest-api:gamesApi:iam": {
+    "instanceId": "1dvkr9t47y-dnjeovnn",
+    "type": "aws-iam-role",
+    "internallyManaged": true,
+    "rootPath": "../../AppData/Roaming/npm/node_modules/serverless-components/registry/aws-iam-role",
+    "inputs": {
+      "name": "api-1dvkr9t47y-w6hujrdo-iam-role-1dvkr9t47y-w6hujrdo",
+      "service": "apigateway.amazonaws.com"
+    },
+    "state": {
+      "name": "api-1dvkr9t47y-w6hujrdo-iam-role-1dvkr9t47y-w6hujrdo",
+      "arn": "arn:aws:iam::283921831988:role/api-1dvkr9t47y-w6hujrdo-iam-role-1dvkr9t47y-w6hujrdo",
+      "service": "apigateway.amazonaws.com",
+      "policy": {
+        "arn": "arn:aws:iam::aws:policy/AdministratorAccess"
+      }
+    }
+  },
+  "sb10-rest-api:gamesApi:apig": {
+    "instanceId": "1dvkr9t47y-wwqzb00p",
+    "type": "aws-apigateway",
+    "internallyManaged": true,
+    "rootPath": "../../AppData/Roaming/npm/node_modules/serverless-components/registry/aws-apigateway",
+    "inputs": {
+      "name": "api-1dvkr9t47y-w6hujrdo",
+      "roleArn": "arn:aws:iam::283921831988:role/api-1dvkr9t47y-w6hujrdo-iam-role-1dvkr9t47y-w6hujrdo",
+      "routes": {
+        "games": {
+          "POST": {
+            "lambdaArn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-ljkli2s0",
+            "cors": true
+          },
+          "GET": {
+            "lambdaArn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-g11cfdof",
+            "cors": true
+          }
+        },
+        "games/{id}": {
+          "GET": {
+            "lambdaArn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-w4sebyk1",
+            "cors": true
+          }
+        },
+        "games/getMaxId": {
+          "GET": {
+            "lambdaArn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-0bgy7iel",
+            "cors": true
+          }
+        }
+      }
+    },
+    "state": {
+      "name": "api-1dvkr9t47y-w6hujrdo",
+      "roleArn": "arn:aws:iam::283921831988:role/api-1dvkr9t47y-w6hujrdo-iam-role-1dvkr9t47y-w6hujrdo",
+      "routes": {
+        "games": {
+          "POST": {
+            "lambdaArn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-ljkli2s0",
+            "cors": true
+          },
+          "GET": {
+            "lambdaArn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-g11cfdof",
+            "cors": true
+          }
+        },
+        "games/{id}": {
+          "GET": {
+            "lambdaArn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-w4sebyk1",
+            "cors": true
+          }
+        },
+        "games/getMaxId": {
+          "GET": {
+            "lambdaArn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-0bgy7iel",
+            "cors": true
+          }
+        }
+      },
+      "id": "w8ir5ytsib",
+      "url": "https://w8ir5ytsib.execute-api.us-east-1.amazonaws.com/dev/",
+      "urls": [
+        "https://w8ir5ytsib.execute-api.us-east-1.amazonaws.com/dev/games",
+        "https://w8ir5ytsib.execute-api.us-east-1.amazonaws.com/dev/games/{id}",
+        "https://w8ir5ytsib.execute-api.us-east-1.amazonaws.com/dev/games/getMaxId"
+      ]
+    }
+  },
+  "sb10-rest-api:getMaxId": {
+    "type": "aws-lambda",
+    "state": {
+      "memory": 512,
+      "timeout": 10,
+      "handler": "games.getMaxId",
+      "root": "./code",
+      "env": {
+        "gamesTableName": "games"
+      },
+      "name": "func-1dvkr9t47y-0bgy7iel",
+      "arn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-0bgy7iel",
+      "roleArn": "arn:aws:iam::283921831988:role/func-1dvkr9t47y-0bgy7iel-execution-role",
+      "defaultRole": {
+        "name": "func-1dvkr9t47y-0bgy7iel-execution-role",
+        "arn": "arn:aws:iam::283921831988:role/func-1dvkr9t47y-0bgy7iel-execution-role",
+        "service": "lambda.amazonaws.com",
+        "policy": {
+          "arn": "arn:aws:iam::aws:policy/AdministratorAccess"
+        }
+      }
+    },
+    "instanceId": "1dvkr9t47y-0bgy7iel",
+    "internallyManaged": false,
+    "rootPath": "../../AppData/Roaming/npm/node_modules/serverless-components/registry/aws-lambda",
+    "inputs": {
+      "memory": 512,
+      "timeout": 10,
+      "handler": "games.getMaxId",
+      "root": "./code",
+      "env": {
+        "gamesTableName": "games"
+      },
+      "name": "func-1dvkr9t47y-0bgy7iel"
+    }
+  },
+  "sb10-rest-api:getMaxId:defaultRole": {
+    "instanceId": "1dvkr9t47y-zy7z5jwe",
+    "type": "aws-iam-role",
+    "internallyManaged": true,
+    "rootPath": "../../AppData/Roaming/npm/node_modules/serverless-components/registry/aws-iam-role",
+    "inputs": {
+      "name": "func-1dvkr9t47y-0bgy7iel-execution-role",
+      "service": "lambda.amazonaws.com"
+    },
+    "state": {
+      "name": "func-1dvkr9t47y-0bgy7iel-execution-role",
+      "arn": "arn:aws:iam::283921831988:role/func-1dvkr9t47y-0bgy7iel-execution-role",
+      "service": "lambda.amazonaws.com",
+      "policy": {
+        "arn": "arn:aws:iam::aws:policy/AdministratorAccess"
+      }
+    }
   }
 }

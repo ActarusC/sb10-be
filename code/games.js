@@ -5,23 +5,48 @@ const tableName = process.env.gamesTableName
 
 function create(evt, ctx, cb) {
   const item = JSON.parse(evt.body)
-  dynamo.put({
-    Item: item,
-    TableName: tableName
-  }, (err, resp) => {
+
+  dynamo.query({
+    TableName: tableName,
+    ProjectionExpression: 'id',
+    KeyConditionExpression: "#sp = :zsp",
+    ExpressionAttributeNames:{
+        "#sp": "Sport"
+    },
+    ExpressionAttributeValues: {
+        ":zsp": "Baseball"
+    },
+    ScanIndexForward:false,
+    Limit: 1,
+  }, (err, data) => {
     if (err) {
       cb(err)
     } else {
-      cb(null, {
-        statusCode: 201,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
-        },
-        body: JSON.stringify(resp)
+      const maxId = data.Items[0].id
+      item.id = maxId + 1;
+
+      dynamo.put({
+        Item: item,
+        TableName: tableName
+      }, (err, resp) => {
+        if (err) {
+          cb(err)
+        } else {
+          cb(null, {
+            statusCode: 201,
+            headers: {
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*'
+            },
+            body: JSON.stringify(resp)
+          })
+        }
       })
     }
   })
+
+
+  
 }
 
 
@@ -69,8 +94,41 @@ function list(evt, ctx, cb) {
   })
 }
 
+
+function getMaxId(evt, ctx, cb) {
+ 
+  dynamo.query({
+    TableName: tableName,
+    ProjectionExpression: 'id',
+    KeyConditionExpression: "#sp = :zsp",
+    ExpressionAttributeNames:{
+        "#sp": "Sport"
+    },
+    ExpressionAttributeValues: {
+        ":zsp": "Baseball"
+    },
+    ScanIndexForward:false,
+    Limit: 1,
+  }, (err, data) => {
+    if (err) {
+      cb(err)
+    } else {
+      const maxId = data.Items[0].id
+      cb(null, {
+        statusCode: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify(maxId)
+      })
+    }
+  })
+}
+
 module.exports = {
   create,
   get,
-  list
+  list,
+  getMaxId
 }
