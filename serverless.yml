@@ -75,6 +75,7 @@ components:
       timeout: 10
       handler: games.create
       root: ./code
+      description: "Create new game."
       env:
         gamesTableName: games
   getGame:
@@ -84,6 +85,7 @@ components:
       timeout: 10
       handler: games.get
       root: ./code
+      description: "Get a single game."
       env:
         gamesTableName: games
   listGames:
@@ -93,6 +95,7 @@ components:
       timeout: 10
       handler: games.list
       root: ./code
+      description: "List games"
       env:
         gamesTableName: games
   getMaxId:
@@ -102,6 +105,7 @@ components:
       timeout: 10
       handler: games.getMaxId
       root: ./code
+      description: "Get game max Id."
       env:
         gamesTableName: games       
   gamesApi:
@@ -116,10 +120,11 @@ components:
           get:
             function: ${listGames}
             cors: true
-          /{id}:
-            get:
-              function: ${getGame}
-              cors: true
+          /{sport}:
+            /{id}:
+              get:
+                function: ${getGame}
+                cors: true
           /getMaxId:
             get:
               function: ${getMaxId}

@@ -183,6 +183,7 @@
       "timeout": 10,
       "handler": "games.create",
       "root": "./code",
+      "description": "Create new game.",
       "env": {
         "gamesTableName": "games"
       },
@@ -206,6 +207,7 @@
       "timeout": 10,
       "handler": "games.create",
       "root": "./code",
+      "description": "Create new game.",
       "env": {
         "gamesTableName": "games"
       },
@@ -219,6 +221,7 @@
       "timeout": 10,
       "handler": "games.get",
       "root": "./code",
+      "description": "Get a single game.",
       "env": {
         "gamesTableName": "games"
       },
@@ -242,6 +245,7 @@
       "timeout": 10,
       "handler": "games.get",
       "root": "./code",
+      "description": "Get a single game.",
       "env": {
         "gamesTableName": "games"
       },
@@ -255,6 +259,7 @@
       "timeout": 10,
       "handler": "games.list",
       "root": "./code",
+      "description": "List games",
       "env": {
         "gamesTableName": "games"
       },
@@ -278,6 +283,7 @@
       "timeout": 10,
       "handler": "games.list",
       "root": "./code",
+      "description": "List games",
       "env": {
         "gamesTableName": "games"
       },
@@ -311,13 +317,15 @@
             },
             "cors": true
           },
-          "/{id}": {
-            "get": {
-              "function": {
-                "arn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-w4sebyk1",
-                "roleArn": "arn:aws:iam::283921831988:role/func-1dvkr9t47y-w4sebyk1-execution-role"
-              },
-              "cors": true
+          "/{sport}": {
+            "/{id}": {
+              "get": {
+                "function": {
+                  "arn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-w4sebyk1",
+                  "roleArn": "arn:aws:iam::283921831988:role/func-1dvkr9t47y-w4sebyk1-execution-role"
+                },
+                "cors": true
+              }
             }
           },
           "/getMaxId": {
@@ -425,7 +433,7 @@
             "cors": true
           }
         },
-        "games/{id}": {
+        "games/{sport}/{id}": {
           "GET": {
             "lambdaArn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-w4sebyk1",
             "cors": true
@@ -453,7 +461,7 @@
             "cors": true
           }
         },
-        "games/{id}": {
+        "games/{sport}/{id}": {
           "GET": {
             "lambdaArn": "arn:aws:lambda:us-east-1:283921831988:function:func-1dvkr9t47y-w4sebyk1",
             "cors": true
@@ -470,7 +478,7 @@
       "url": "https://w8ir5ytsib.execute-api.us-east-1.amazonaws.com/dev/",
       "urls": [
         "https://w8ir5ytsib.execute-api.us-east-1.amazonaws.com/dev/games",
-        "https://w8ir5ytsib.execute-api.us-east-1.amazonaws.com/dev/games/{id}",
+        "https://w8ir5ytsib.execute-api.us-east-1.amazonaws.com/dev/games/{sport}/{id}",
         "https://w8ir5ytsib.execute-api.us-east-1.amazonaws.com/dev/games/getMaxId"
       ]
     }
@@ -482,6 +490,7 @@
       "timeout": 10,
       "handler": "games.getMaxId",
       "root": "./code",
+      "description": "Get game max Id.",
       "env": {
         "gamesTableName": "games"
       },
@@ -505,6 +514,7 @@
       "timeout": 10,
       "handler": "games.getMaxId",
       "root": "./code",
+      "description": "Get game max Id.",
       "env": {
         "gamesTableName": "games"
       },

@@ -23,6 +23,7 @@ function create(evt, ctx, cb) {
       cb(err)
     } else {
       const maxId = data.Items[0].id
+      console.log("MaxId:" + maxId);
       item.id = maxId + 1;
 
       dynamo.put({
@@ -52,9 +53,12 @@ function create(evt, ctx, cb) {
 
 function get(evt, ctx, cb) {
   const vId = parseInt(evt.pathParameters.id, 10)
+  const vSport = evt.pathParameters.Sport
+
   dynamo.get({
     Key: {
-      id: vId
+      id: vId,
+      Sport: vSport
     },
     TableName: tableName
   }, (err, data) => {
